@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.7;
+pragma solidity 0.8.7;
 
 import {StekcitUser, StekcitEvent, StekcitTicket, StekcitPayout} from "./StekcitBwCStructs.sol";
 
@@ -33,7 +33,15 @@ contract StekcitBwC {
         _;
     }
 
-    function checkIfWalletAddressBelongsToAnExistingUser(address _walletAddress)
+        modifier onlyExistingUser() {
+        require(
+            checkIfUserExists(msg.sender),
+            "Only Existing users can perform this action."
+        );
+        _;
+    }
+
+    function checkIfUserExists(address _walletAddress)
         public
         view
         returns (bool)
@@ -69,40 +77,7 @@ contract StekcitBwC {
         string memory _username,
         string memory _emailAddress
     ) public returns (StekcitUser memory) {
-        bool userExists = checkIfWalletAddressBelongsToAnExistingUser(
-            _walletAddress
-        );
-
-        if (userExists) {
-            return getUserByWalletAddress(_walletAddress);
-        }
-
-        uint256 newUserId = currentUserId;
-
-        allStekcitUsers.push(
-            StekcitUser(
-                newUserId,
-                _walletAddress,
-                _username,
-                _emailAddress,
-                false,
-                false
-            )
-        );
-
-        currentUserId++;
-
-        return getUserByUserId(newUserId);
-    }
-
-    function createPayout(
-        address _walletAddress,
-        string memory _username,
-        string memory _emailAddress
-    ) public returns (StekcitUser memory) {
-        bool userExists = checkIfWalletAddressBelongsToAnExistingUser(
-            _walletAddress
-        );
+        bool userExists = checkIfUserExists(_walletAddress);
 
         if (userExists) {
             return getUserByWalletAddress(_walletAddress);
@@ -363,7 +338,7 @@ contract StekcitBwC {
         return allTicketsOfUser;
     }
 
-    function makeCreatingUser(address _walletAddress) public returns (bool) {
+    function makeCreatingUser(address _walletAddress) public onlyExistingUser returns (bool) {
         StekcitUser memory userToBeUpdated = getUserByWalletAddress(
             _walletAddress
         );
@@ -664,18 +639,29 @@ contract StekcitBwC {
         uint256 verificationAmount = (eventToVerifyAndUpdate.amount * 1) / 10;
 
         eventToVerifyAndUpdate.updatedAt = block.timestamp;
-        eventToVerifyAndUpdate.isBlank = false;
         eventToVerifyAndUpdate.isVerified = true;
         eventToVerifyAndUpdate.verificationAmount = verificationAmount;
 
         allStekcitEvents[_eventId] = eventToVerifyAndUpdate;
 
-        return getEventById(_eventId);
+        return eventToVerifyAndUpdate;
+    }
+
+    function publishEvent(uint256 _eventId)
+        public
+        returns (StekcitEvent memory)
+    {
+        StekcitEvent memory eventToVerifyAndUpdate = getEventById(_eventId);
+
+        eventToVerifyAndUpdate.isPublished = true;
+
+        allStekcitEvents[_eventId] = eventToVerifyAndUpdate;
+
+        return eventToVerifyAndUpdate;
     }
 
     function approveStekcitBM(uint256 _amount) public returns (bool) {
         uint256 approvalAmountInEthers = _amount * (10**CUSD.decimals());
-
         return CUSD.approve(address(this), approvalAmountInEthers);
     }
 

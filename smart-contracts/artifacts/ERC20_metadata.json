@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.25+commit.b61c2a91"
+		"version": "0.8.7+commit.e28d00a7"
 	},
 	"language": "Solidity",
 	"output": {
@@ -410,24 +410,24 @@
 		"compilationTarget": {
 			"smart-contracts/StekcitBwCInterfaces.sol": "ERC20"
 		},
-		"evmVersion": "cancun",
+		"evmVersion": "london",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
+			"enabled": true,
 			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
 		"smart-contracts/StekcitBwCInterfaces.sol": {
-			"keccak256": "0x784a54deca7017e43c8cb5d13c863d0bafd9bbf7a85c3dea0430a8b822948a2b",
+			"keccak256": "0xf96de9ea696fc7e909267b6139e0c9ae368f6ea8b86bec376df7be27db298f5b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://d7f69ce64fad936d8b1842c0c0b7a482e3b79386650ea3d83e9db7a5f05bf88a",
-				"dweb:/ipfs/QmNW8sPJ5WfddwUwXSvRiLPnvio9oCzAVQL52TEVXN3emF"
+				"bzz-raw://77db0f6aa81ece59c199ccb5214507943814b717e1f98a423a96639a599986b5",
+				"dweb:/ipfs/QmaEp24J2dRcZSyGJ6hRYssBM94oL6VMFRZDzsfnrCL6c5"
 			]
 		}
 	},

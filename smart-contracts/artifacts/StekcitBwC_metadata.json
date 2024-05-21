@@ -81,17 +81,12 @@
 			{
 				"inputs": [
 					{
-						"internalType": "uint256",
-						"name": "_eventId",
-						"type": "uint256"
-					},
-					{
 						"internalType": "address",
 						"name": "_walletAddress",
 						"type": "address"
 					}
 				],
-				"name": "checkIfUserisCreatingUserOfEvent",
+				"name": "checkIfUserExists",
 				"outputs": [
 					{
 						"internalType": "bool",
@@ -105,12 +100,17 @@
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "_eventId",
+						"type": "uint256"
+					},
+					{
 						"internalType": "address",
 						"name": "_walletAddress",
 						"type": "address"
 					}
 				],
-				"name": "checkIfWalletAddressBelongsToAnExistingUser",
+				"name": "checkIfUserisCreatingUserOfEvent",
 				"outputs": [
 					{
 						"internalType": "bool",
@@ -1458,11 +1458,11 @@
 	},
 	"sources": {
 		"smart-contracts/StekcitBwC.sol": {
-			"keccak256": "0x4a26028e27c41f9ba403cc6cef96d191046f8b98617ce30ab810e93c8cdd7316",
+			"keccak256": "0xba9964c4cb42b080d8364a45c8ca173df608a30ade9746c92cb56e42354b3512",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://ff41b072d8109d82650ca99acf2516f425d9e82f60124a4b320247fabd6ac044",
-				"dweb:/ipfs/QmbkcVsGSSiArzqCpCPoSc8T52jgBCJv3BFyPXD3wVbczL"
+				"bzz-raw://f0c529bab630cac0f9107f7a7ce2b95f14350d055b3a16984eca05ccd4280102",
+				"dweb:/ipfs/QmYpVp6tAXa6rtgWTd8x3JCoZLgfUcrzLNkMjVQ2dvWn4V"
 			]
 		},
 		"smart-contracts/StekcitBwCInterfaces.sol": {
