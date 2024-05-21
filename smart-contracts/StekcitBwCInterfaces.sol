@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+pragma solidity 0.8.7;
 
 interface ERC20 {
     function initialize(string memory name_, string memory symbol_) external;
