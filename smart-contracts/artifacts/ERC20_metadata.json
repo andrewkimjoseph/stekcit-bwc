@@ -416,18 +416,18 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
+			"enabled": true,
 			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
 		"smart-contracts/StekcitBwCInterfaces.sol": {
-			"keccak256": "0xdcfa63a12c6c1fb93d7db54df5f7256cbb94371e8ebbeebe92d751998a231bf3",
+			"keccak256": "0xf96de9ea696fc7e909267b6139e0c9ae368f6ea8b86bec376df7be27db298f5b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://d00de8037c67ceb828759740cf04c575730693b4e58b6f95aa142b7ce90f46b9",
-				"dweb:/ipfs/Qmcz3vU5rpEvVL8t9WTMvpWK3TJaZwj3U4aro2tMeMNzDr"
+				"bzz-raw://77db0f6aa81ece59c199ccb5214507943814b717e1f98a423a96639a599986b5",
+				"dweb:/ipfs/QmaEp24J2dRcZSyGJ6hRYssBM94oL6VMFRZDzsfnrCL6c5"
 			]
 		}
 	},
