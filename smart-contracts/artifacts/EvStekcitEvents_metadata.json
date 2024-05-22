@@ -1,0 +1,45 @@
+{
+	"compiler": {
+		"version": "0.8.7+commit.e28d00a7"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"smart-contracts/StekcitEvents.sol": "EvStekcitEvents"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"smart-contracts/StekcitEvents.sol": {
+			"keccak256": "0xb5bfe3b2a6ecac34bceced2d818a9454ff2a0f57f162d63b1590019659f2ea31",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://84e34e4093b80bb88d0404ff3941c94f672d6d2a738a06bc1670a992b81ac181",
+				"dweb:/ipfs/QmNoniFWWHH27KBFGveDoWzzFXfSTnLoNeRtFuQXatvHg7"
+			]
+		}
+	},
+	"version": 1
+}

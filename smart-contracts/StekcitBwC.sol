@@ -19,7 +19,7 @@ contract StekcitBwC {
     uint256 private currentTicketId;
     uint256 private currentPayoutId;
 
-    ERC20 CUSD = ERC20(0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1);
+    ERC20 cUSD = ERC20(0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1);
 
     constructor(address _stekcitBwCOwnerAddress) {
         stekcitBwCOwnerAddress = _stekcitBwCOwnerAddress;
@@ -83,15 +83,14 @@ contract StekcitBwC {
         return false;
     }
 
-    function createUser(
-        address _walletAddress,
-        string memory _username,
-        string memory _emailAddress
-    ) public returns (StekcitUser memory) {
-        bool userExists = checkIfUserExists(_walletAddress);
+    function createUser(string memory _username, string memory _emailAddress)
+        public
+        returns (StekcitUser memory)
+    {
+        bool userExists = checkIfUserExists(msg.sender);
 
         if (userExists) {
-            return getUserByWalletAddress(_walletAddress);
+            return getUserByWalletAddress(msg.sender);
         }
 
         uint256 newUserId = currentUserId;
@@ -99,7 +98,7 @@ contract StekcitBwC {
         allStekcitUsers.push(
             StekcitUser(
                 newUserId,
-                _walletAddress,
+                msg.sender,
                 _username,
                 _emailAddress,
                 false,
@@ -109,7 +108,9 @@ contract StekcitBwC {
 
         currentUserId++;
 
-        return getUserByUserId(newUserId);
+        StekcitUser memory newUser = getUserByUserId(newUserId);
+
+        return newUser;
     }
 
     function getUserByWalletAddress(address _walletAddress)
@@ -349,14 +350,8 @@ contract StekcitBwC {
         return allTicketsOfUser;
     }
 
-    function makeCreatingUser(address _walletAddress)
-        public
-        onlyExistingUser
-        returns (bool)
-    {
-        StekcitUser memory userToBeUpdated = getUserByWalletAddress(
-            _walletAddress
-        );
+    function makeCreatingUser() public onlyExistingUser returns (bool) {
+        StekcitUser memory userToBeUpdated = getUserByWalletAddress(msg.sender);
 
         if (!userToBeUpdated.isBlank) {
             uint256 userId = userToBeUpdated.id;
@@ -393,8 +388,8 @@ contract StekcitBwC {
         string memory _description,
         string memory _link,
         uint256 _amount,
-        uint256 dateAndTime,
-        bool forImmediatePublishing
+        uint256 _dateAndTime,
+        bool _forImmediatePublishing
     )
         public
         onlyExistingUser
@@ -404,6 +399,7 @@ contract StekcitBwC {
         uint256 newEventId = currentEventId;
         uint256 createdAt = block.timestamp;
         uint256 updatedAt = block.timestamp;
+        uint256 amountInEthers = _amount * (10**cUSD.decimals());
 
         allStekcitEvents.push(
             StekcitEvent(
@@ -412,12 +408,12 @@ contract StekcitBwC {
                 _title,
                 _description,
                 _link,
-                _amount,
+                amountInEthers,
                 createdAt,
                 updatedAt,
-                dateAndTime,
+                _dateAndTime,
                 false,
-                forImmediatePublishing,
+                _forImmediatePublishing,
                 false,
                 0,
                 false,
@@ -473,18 +469,71 @@ contract StekcitBwC {
         view
         returns (uint256)
     {
-        return CUSD.allowance(_walletAddress, address(this));
+        return cUSD.allowance(_walletAddress, address(this));
     }
 
     function payForEvent(uint256 _amount) public returns (bool) {
-        return CUSD.transfer(address(this), _amount);
+        return cUSD.transfer(address(this), _amount);
     }
 
-    function createTicketForUser(
+    function checkIfTicketOfUserForThisEventExists(uint256 _eventId)
+        public
+        view
+        returns (bool)
+    {
+        for (
+            uint256 ticketId = 0;
+            ticketId < allStekcitTickets.length;
+            ticketId++
+        ) {
+            StekcitTicket memory currentTicket = allStekcitTickets[ticketId];
+            if (
+                currentTicket.eventId == _eventId &&
+                currentTicket.attendingUserWalletAddress == msg.sender
+            ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function getTicketByEventIdAndWalletAddress(
         uint256 _eventId,
-        address _attendingUserWalletAddress
-    ) public onlyExistingUser returns (StekcitTicket memory) {
+        address _walletAddress
+    ) public view returns (StekcitTicket memory) {
+        for (
+            uint256 ticketId = 0;
+            ticketId < allStekcitTickets.length;
+            ticketId++
+        ) {
+            StekcitTicket memory currentTicket = allStekcitTickets[ticketId];
+            if (
+                currentTicket.eventId == _eventId &&
+                currentTicket.attendingUserWalletAddress == _walletAddress
+            ) {
+                return currentTicket;
+            }
+        }
+
+        StekcitTicket memory blankTicket;
+        blankTicket.isBlank = true;
+        return blankTicket;
+    }
+
+    function createTicketForUser(uint256 _eventId)
+        public
+        onlyExistingUser
+        returns (StekcitTicket memory)
+    {
         StekcitEvent memory currentEvent = allStekcitEvents[_eventId];
+
+        bool ticketOfUserForThisEventExists = checkIfTicketOfUserForThisEventExists(
+                _eventId
+            );
+
+        if (ticketOfUserForThisEventExists) {
+            return getTicketByEventIdAndWalletAddress(_eventId, msg.sender);
+        }
 
         uint256 newTicketId = currentTicketId;
 
@@ -492,8 +541,9 @@ contract StekcitBwC {
             StekcitTicket(
                 newTicketId,
                 _eventId,
-                _attendingUserWalletAddress,
-                currentEvent.amount
+                msg.sender,
+                currentEvent.amountInEthers,
+                false
             )
         );
 
@@ -546,7 +596,6 @@ contract StekcitBwC {
         returns (StekcitPayout memory)
     {
         // Check if event has already been paid out (if payout exists)
-
         StekcitEvent memory eventToBePaidOut = allStekcitEvents[_eventId];
 
         bool eventIsAlreadyPaidOut = checkIfEventIsAlreadyPaidOut(_eventId);
@@ -558,29 +607,39 @@ contract StekcitBwC {
             return blankPayout;
         }
 
+        uint256 totalAmountToBePaidOutToCreatingUser = 0; // Starting value
+
         // Get amount to be paid
-        uint256 amountPaidToEvent = getTotalAmountPaidToEvent(_eventId);
-        uint256 amountToBePaidOutToCreatingUser = (amountPaidToEvent * 8) / 10;
-        uint256 amountToBePaidOutToCreatingUserInEthers = amountToBePaidOutToCreatingUser *
-                (10**CUSD.decimals());
+        uint256 amountPaidToEventInEthers = getTotalAmountPaidToEventInEthers(
+            _eventId
+        );
+
+        // Add it to starting value (now running value)
+        totalAmountToBePaidOutToCreatingUser +=
+            (amountPaidToEventInEthers * 80) /
+            100;
+
+        // Add verification amount if [StekcitEvent] was verified
+        if (eventToBePaidOut.isVerified) {
+            totalAmountToBePaidOutToCreatingUser += eventToBePaidOut
+                .verificationAmountInEthers;
+        }
 
         // Transfer to creating user
-        bool isCreatingUserPaid = CUSD.transfer(
+        bool isCreatingUserPaid = cUSD.transfer(
             eventToBePaidOut.creatingUserWalletAddress,
-            amountToBePaidOutToCreatingUserInEthers
+            totalAmountToBePaidOutToCreatingUser
         );
 
         if (isCreatingUserPaid) {
-            uint256 amountToBePaidOutToStekcitBwcOwner = (amountPaidToEvent *
-                2) / 10;
+            uint256 amountToBePaidOutToStekcitBwcOwner = (amountPaidToEventInEthers *
+                    20) / 100;
 
             // Transfer to StekcitBwCOwner
-            uint256 amountToBePaidOutToStekcitBwcOwnerInEthers = amountToBePaidOutToStekcitBwcOwner *
-                    (10**CUSD.decimals());
 
-            bool isStekcitBwCOwnerPaid = CUSD.transfer(
+            bool isStekcitBwCOwnerPaid = cUSD.transfer(
                 stekcitBwCOwnerAddress,
-                amountToBePaidOutToStekcitBwcOwnerInEthers
+                amountToBePaidOutToStekcitBwcOwner
             );
 
             if (isStekcitBwCOwnerPaid) {
@@ -592,7 +651,7 @@ contract StekcitBwC {
                 // Create new payout
                 StekcitPayout memory newPayout = createPayout(
                     _eventId,
-                    amountToBePaidOutToCreatingUser
+                    totalAmountToBePaidOutToCreatingUser
                 );
                 return newPayout;
             }
@@ -604,7 +663,7 @@ contract StekcitBwC {
     }
 
     function createPayout(uint256 _eventId, uint256 _amount)
-        public
+        private
         onlyCreatingUserOfEvent(_eventId)
         returns (StekcitPayout memory)
     {
@@ -632,12 +691,12 @@ contract StekcitBwC {
         return allStekcitPayouts[_payoutId];
     }
 
-    function getTotalAmountPaidToEvent(uint256 _eventId)
+    function getTotalAmountPaidToEventInEthers(uint256 _eventId)
         public
         view
         returns (uint256)
     {
-        uint256 totalAmount = 0;
+        uint256 totalAmountInEthers = 0;
 
         StekcitTicket[] memory allTicketsOfEvent = getAllTicketsOfEvent(
             _eventId
@@ -649,10 +708,10 @@ contract StekcitBwC {
             ticketId++
         ) {
             StekcitTicket memory currentTicket = allTicketsOfEvent[ticketId];
-            totalAmount += currentTicket.amountPaid;
+            totalAmountInEthers += currentTicket.amountPaidInEthers;
         }
 
-        return totalAmount;
+        return totalAmountInEthers;
     }
 
     function verifyEvent(uint256 _eventId)
@@ -661,11 +720,11 @@ contract StekcitBwC {
     {
         StekcitEvent memory eventToVerifyAndUpdate = getEventById(_eventId);
 
-        uint256 verificationAmount = (eventToVerifyAndUpdate.amount * 1) / 10;
+        uint256 verificationAmount = eventToVerifyAndUpdate.amountInEthers / 10;
 
         eventToVerifyAndUpdate.updatedAt = block.timestamp;
         eventToVerifyAndUpdate.isVerified = true;
-        eventToVerifyAndUpdate.verificationAmount = verificationAmount;
+        eventToVerifyAndUpdate.verificationAmountInEthers = verificationAmount;
 
         allStekcitEvents[_eventId] = eventToVerifyAndUpdate;
 
@@ -686,8 +745,8 @@ contract StekcitBwC {
     }
 
     function approveStekcitBM(uint256 _amount) public returns (bool) {
-        uint256 approvalAmountInEthers = _amount * (10**CUSD.decimals());
-        return CUSD.approve(address(this), approvalAmountInEthers);
+        uint256 approvalAmountInEthers = _amount * (10**cUSD.decimals());
+        return cUSD.approve(address(this), approvalAmountInEthers);
     }
 
     function increaseApprovalForStekcitBwC(uint256 _increaseApprovalAmount)
@@ -695,10 +754,10 @@ contract StekcitBwC {
         returns (bool)
     {
         uint256 increaseApprovalAmountInEthers = _increaseApprovalAmount *
-            (10**CUSD.decimals());
+            (10**cUSD.decimals());
 
         return
-            CUSD.increaseAllowance(
+            cUSD.increaseAllowance(
                 address(this),
                 increaseApprovalAmountInEthers
             );
