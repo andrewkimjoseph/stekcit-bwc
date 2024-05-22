@@ -464,14 +464,6 @@ contract StekcitBwC {
         return eventAttendees;
     }
 
-    function checkStekcitBwCAllowanceOfUser(address _walletAddress)
-        public
-        view
-        returns (uint256)
-    {
-        return cUSD.allowance(_walletAddress, address(this));
-    }
-
     function checkIfTicketOfUserForThisEventExists(uint256 _eventId)
         public
         view
