@@ -17,14 +17,14 @@ struct StekcitEvent {
     string title;
     string description;
     string link;
-    uint256 amount;
+    uint256 amountInEthers;
     uint256 createdAt;
     uint256 updatedAt;
     uint256 dateAndTime;
     bool isBlank;
     bool isPublished;
     bool isVerified;
-    uint256 verificationAmount;
+    uint256 verificationAmountInEthers;
     bool isEnded;
     bool isPaidOut;
 }
@@ -33,14 +33,15 @@ struct StekcitTicket {
     uint256 id;
     uint256 eventId;
     address attendingUserWalletAddress;
-    uint256 amountPaid;
+    uint256 amountPaidInEthers;
+    bool isBlank;
 }
 
 struct StekcitPayout {
     uint256 id;
     uint256 eventId;
     address creatingUserWalletAddress;
-    uint256 amountPaidOut;
+    uint256 amountPaidOutInEthers;
     uint256 dateTimeAndMade;
     bool isBlank;
 }
