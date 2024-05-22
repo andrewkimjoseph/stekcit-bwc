@@ -464,18 +464,6 @@ contract StekcitBwC {
         return eventAttendees;
     }
 
-    function checkStekcitBwCAllowanceOfUser(address _walletAddress)
-        public
-        view
-        returns (uint256)
-    {
-        return cUSD.allowance(_walletAddress, address(this));
-    }
-
-    function payForEvent(uint256 _amount) public returns (bool) {
-        return cUSD.transfer(address(this), _amount);
-    }
-
     function checkIfTicketOfUserForThisEventExists(uint256 _eventId)
         public
         view
@@ -716,6 +704,7 @@ contract StekcitBwC {
 
     function verifyEvent(uint256 _eventId)
         public
+        onlyCreatingUserOfEvent(_eventId)
         returns (StekcitEvent memory)
     {
         StekcitEvent memory eventToVerifyAndUpdate = getEventById(_eventId);
@@ -733,6 +722,7 @@ contract StekcitBwC {
 
     function publishEvent(uint256 _eventId)
         public
+        onlyCreatingUserOfEvent(_eventId)
         returns (StekcitEvent memory)
     {
         StekcitEvent memory eventToVerifyAndUpdate = getEventById(_eventId);
@@ -742,24 +732,5 @@ contract StekcitBwC {
         allStekcitEvents[_eventId] = eventToVerifyAndUpdate;
 
         return eventToVerifyAndUpdate;
-    }
-
-    function approveStekcitBM(uint256 _amount) public returns (bool) {
-        uint256 approvalAmountInEthers = _amount * (10**cUSD.decimals());
-        return cUSD.approve(address(this), approvalAmountInEthers);
-    }
-
-    function increaseApprovalForStekcitBwC(uint256 _increaseApprovalAmount)
-        public
-        returns (bool)
-    {
-        uint256 increaseApprovalAmountInEthers = _increaseApprovalAmount *
-            (10**cUSD.decimals());
-
-        return
-            cUSD.increaseAllowance(
-                address(this),
-                increaseApprovalAmountInEthers
-            );
     }
 }
