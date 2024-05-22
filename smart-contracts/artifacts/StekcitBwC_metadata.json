@@ -143,11 +143,6 @@
 			{
 				"inputs": [
 					{
-						"internalType": "address",
-						"name": "_creatingWalletAddress",
-						"type": "address"
-					},
-					{
 						"internalType": "string",
 						"name": "_title",
 						"type": "string"
@@ -333,11 +328,6 @@
 						"internalType": "address",
 						"name": "_attendingUserWalletAddress",
 						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "_amountPaid",
-						"type": "uint256"
 					}
 				],
 				"name": "createTicketForUser",
@@ -1493,11 +1483,11 @@
 	},
 	"sources": {
 		"smart-contracts/StekcitBwC.sol": {
-			"keccak256": "0x60624c1718e430160b42a7591d198eb69c7daa3245991c71fbcd531dd75569e6",
+			"keccak256": "0xc46694ab8f50d7360005f38f082a34a7c19a503f2e85df98f1ec0b3dbe12219e",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://6095b53f8dada554f26021ee748116516f8b49b9aea12dbdde79959a53f5ffb3",
-				"dweb:/ipfs/QmaYQcL69GW535zUtEirymLxTFnTXzRpaaRRiHuTNwJn1k"
+				"bzz-raw://9276efe7b7c7396e69f49e4554b73a3ee4820a02b2217764599c81746ea52272",
+				"dweb:/ipfs/Qmdc9QLDuy1bbxyucvtZbVrTrDE8MUu1GtsorjKvKLrnEG"
 			]
 		},
 		"smart-contracts/StekcitBwCInterfaces.sol": {

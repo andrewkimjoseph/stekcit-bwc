@@ -25,18 +25,29 @@ contract StekcitBwC {
         stekcitBwCOwnerAddress = _stekcitBwCOwnerAddress;
     }
 
-    modifier onlyCreatingUser(uint256 _eventId) {
+    modifier onlyCreatingUserOfEvent(uint256 _eventId) {
         require(
             checkIfUserisCreatingUserOfEvent(_eventId, msg.sender),
-            "Only a Creating user can perform this action."
+            "Only a creating user of event can perform this action."
         );
         _;
     }
 
-        modifier onlyExistingUser() {
+    modifier onlyCreatingUser(address _walletAddress) {
+        StekcitUser memory checkingUser = getUserByWalletAddress(
+            _walletAddress
+        );
+        require(
+            checkingUser.isCreatingUser,
+            "Only a creating user can perform this action."
+        );
+        _;
+    }
+
+    modifier onlyExistingUser() {
         require(
             checkIfUserExists(msg.sender),
-            "Only Existing users can perform this action."
+            "Only existing users can perform this action."
         );
         _;
     }
@@ -227,12 +238,12 @@ contract StekcitBwC {
         uint256 numberOfTicketsOfEvents = 0;
 
         for (
-            uint256 eventId = 0;
-            eventId < allStekcitEvents.length;
-            eventId++
+            uint256 ticketId = 0;
+            ticketId < allStekcitTickets.length;
+            ticketId++
         ) {
-            StekcitEvent memory currentEvent = allStekcitEvents[eventId];
-            if (currentEvent.id == _eventId) {
+            StekcitTicket memory currentTicket = allStekcitTickets[ticketId];
+            if (currentTicket.eventId == _eventId) {
                 numberOfTicketsOfEvents++;
             }
         }
@@ -338,7 +349,11 @@ contract StekcitBwC {
         return allTicketsOfUser;
     }
 
-    function makeCreatingUser(address _walletAddress) public onlyExistingUser returns (bool) {
+    function makeCreatingUser(address _walletAddress)
+        public
+        onlyExistingUser
+        returns (bool)
+    {
         StekcitUser memory userToBeUpdated = getUserByWalletAddress(
             _walletAddress
         );
@@ -374,14 +389,18 @@ contract StekcitBwC {
     }
 
     function createEvent(
-        address _creatingWalletAddress,
         string memory _title,
         string memory _description,
         string memory _link,
         uint256 _amount,
         uint256 dateAndTime,
         bool forImmediatePublishing
-    ) public returns (StekcitEvent memory) {
+    )
+        public
+        onlyExistingUser
+        onlyCreatingUser(msg.sender)
+        returns (StekcitEvent memory)
+    {
         uint256 newEventId = currentEventId;
         uint256 createdAt = block.timestamp;
         uint256 updatedAt = block.timestamp;
@@ -389,7 +408,7 @@ contract StekcitBwC {
         allStekcitEvents.push(
             StekcitEvent(
                 newEventId,
-                _creatingWalletAddress,
+                msg.sender,
                 _title,
                 _description,
                 _link,
@@ -463,9 +482,10 @@ contract StekcitBwC {
 
     function createTicketForUser(
         uint256 _eventId,
-        address _attendingUserWalletAddress,
-        uint256 _amountPaid
-    ) public returns (StekcitTicket memory) {
+        address _attendingUserWalletAddress
+    ) public onlyExistingUser returns (StekcitTicket memory) {
+        StekcitEvent memory currentEvent = allStekcitEvents[_eventId];
+
         uint256 newTicketId = currentTicketId;
 
         allStekcitTickets.push(
@@ -473,7 +493,7 @@ contract StekcitBwC {
                 newTicketId,
                 _eventId,
                 _attendingUserWalletAddress,
-                _amountPaid
+                currentEvent.amount
             )
         );
 
@@ -502,7 +522,7 @@ contract StekcitBwC {
     function checkIfEventIsAlreadyPaidOut(uint256 _eventId)
         public
         view
-        onlyCreatingUser(_eventId)
+        onlyCreatingUserOfEvent(_eventId)
         returns (bool)
     {
         for (
@@ -522,7 +542,7 @@ contract StekcitBwC {
 
     function processPayout(uint256 _eventId)
         public
-        onlyCreatingUser(_eventId)
+        onlyCreatingUserOfEvent(_eventId)
         returns (StekcitPayout memory)
     {
         // Check if event has already been paid out (if payout exists)
@@ -564,7 +584,12 @@ contract StekcitBwC {
             );
 
             if (isStekcitBwCOwnerPaid) {
-                // allStekcitPayouts =
+                // Mark the event as ended and as paid out
+                eventToBePaidOut.isEnded = true;
+                eventToBePaidOut.isPaidOut = true;
+                allStekcitEvents[_eventId] = eventToBePaidOut;
+
+                // Create new payout
                 StekcitPayout memory newPayout = createPayout(
                     _eventId,
                     amountToBePaidOutToCreatingUser
@@ -580,7 +605,7 @@ contract StekcitBwC {
 
     function createPayout(uint256 _eventId, uint256 _amount)
         public
-        onlyCreatingUser(_eventId)
+        onlyCreatingUserOfEvent(_eventId)
         returns (StekcitPayout memory)
     {
         uint256 newPayoutId = currentPayoutId;
