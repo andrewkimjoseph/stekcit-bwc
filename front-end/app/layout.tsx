@@ -1,66 +1,37 @@
-
-"use client"
+"use client";
 
 import "@/styles/globals.css";
-import { Metadata, Viewport } from "next";
-import { Link } from "@nextui-org/link";
 import clsx from "clsx";
 
 import { Providers } from "./providers";
 
-import { siteConfig } from "@/config/site";
-import { fontSans } from "@/config/fonts";
+import { dmSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
 
 import {
   RainbowKitProvider,
-  connectorsForWallets,
   getDefaultConfig,
+  lightTheme,
 } from "@rainbow-me/rainbowkit";
-import { injectedWallet } from "@rainbow-me/rainbowkit/wallets";
 import "@rainbow-me/rainbowkit/styles.css";
-import { http, WagmiProvider, createConfig, Config } from "wagmi";
+import { http, WagmiProvider } from "wagmi";
 import { celo, celoAlfajores } from "wagmi/chains";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { walletConnectWallet } from "@rainbow-me/rainbowkit/dist/wallets/walletConnectors/walletConnectWallet/walletConnectWallet";
 
-const metadata: Metadata = {
-  title: {
-    default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
-  icons: {
-    icon: "/favicon.ico",
-  },
-};
-
- const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
-};
-
-
-export const config = getDefaultConfig({
-  appName: 'My RainbowKit App',
-  projectId: 'YOUR_PROJECT_ID',
+const config = getDefaultConfig({
+  appName: "My RainbowKit App",
+  projectId: "c12fc096f3ae8e713d0c3425cc540b1f",
   chains: [celo, celoAlfajores],
   transports: {
     [celo.id]: http(),
     [celoAlfajores.id]: http(),
   },
-    ssr: true, // If your dApp uses server side rendering (SSR)
+  ssr: false,
 });
 
-//  const config: Config = createConfig({
-//   connectors,
-//   chains: [celo, celoAlfajores],
-
-// });
-
-export const queryClient = new QueryClient();
+const queryClient = new QueryClient();
 
 export default function RootLayout({
   children,
@@ -73,19 +44,32 @@ export default function RootLayout({
       <body
         className={clsx(
           "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable,
+          dmSans.variable,
         )}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           <WagmiProvider config={config}>
             <QueryClientProvider client={queryClient}>
-              <RainbowKitProvider>
+              <RainbowKitProvider
+                theme={lightTheme({
+                  accentColor: "#EA1845",
+                  accentColorForeground: "white",
+                  borderRadius: "large",
+                  fontStack: "rounded",
+                  overlayBlur: "small",
+                })}
+              >
                 <div className="relative flex flex-col h-screen">
                   <Navbar />
                   <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
                     {children}
                   </main>
                   <footer className="w-full flex items-center justify-center py-3">
+                    {/* <Button
+                      onClick={() => {
+                        // theme.setTheme("dark");
+                      }}
+                    /> */}
                     {/* <Link
                 isExternal
                 className="flex items-center gap-1 text-current"

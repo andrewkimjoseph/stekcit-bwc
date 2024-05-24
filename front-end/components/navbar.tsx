@@ -50,7 +50,7 @@ export const Navbar = () => {
             <p className="font-bold text-inherit">Stekcit BwC</p>
           </NextLink>
         </NavbarBrand>
-        <ul className="hidden lg:flex gap-4 justify-start ml-2">
+        <ul className="hidden md:flex gap-4 justify-start ml-2">
           {siteConfig.navItems.map((item) => (
             <NavbarItem key={item.href}>
               <NextLink
@@ -69,25 +69,42 @@ export const Navbar = () => {
         <ThemeSwitch className="hidden sm:flex basis-1/5 sm:basis-full" />
       </NavbarContent>
 
-      <NavbarContent
-        className="hidden sm:flex basis-1/5 sm:basis-full"
-        justify="end"
-      >
-        <NavbarItem className="hidden sm:flex gap-2">
-          <ConnectButton />
+      <NavbarContent  justify="end">
+        <NavbarItem >
+          <ConnectButton
+            chainStatus="none"
+            accountStatus={{
+              smallScreen: "avatar",
+              largeScreen: "full",
+            }}
+            showBalance={{
+              smallScreen: false,
+              largeScreen: false,
+            }}
+            label="Connect"
+          />
         </NavbarItem>
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        {/* <Link isExternal aria-label="Github" href={siteConfig.links.github}>
-          <GithubIcon className="text-default-500" />
-        </Link> */}
         <ThemeSwitch />
         <NavbarMenuToggle />
       </NavbarContent>
 
       <NavbarMenu>
         {/* {searchInput} */}
+
+        <div className="mx-4 mt-2 flex flex-col gap-2">
+          {/* <NavbarMenuItem >
+
+            <Link >
+            <ConnectButton   showBalance={{
+                      smallScreen: false,
+                      largeScreen: false,
+                    }} label="Connect to Stekcit BwC"/>        </Link>
+        
+            </NavbarMenuItem> */}
+        </div>
 
         <div className="mx-4 mt-2 flex flex-col gap-2">
           {siteConfig.navMenuItems.map((item, index) => (

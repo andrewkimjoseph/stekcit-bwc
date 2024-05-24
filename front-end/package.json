@@ -1,7 +1,10 @@
 {
-	"name": "next-app-template",
-	"version": "0.0.1",
+	"name": "stekcit-bwc",
+	"version": "1.0.0",
 	"private": true,
+	"author": "Team Stekcit",
+	"email": "stekcitbm@gmail.com",
+	"license": "MIT",
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
