@@ -10,11 +10,11 @@ export const siteConfig = {
     },
     {
       label: "My Events",
-      href: "/yes",
+      href: "/about",
     },
     {
       label: "My Tickets",
-      href: "/no",
+      href: "/blog",
     },
     // {
     //   label: "Pricing",
@@ -40,7 +40,7 @@ export const siteConfig = {
     },
     {
       label: "My Tickets",
-      href: "/yes",
+      href: "/pricing",
     },
   ],
   links: {
