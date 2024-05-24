@@ -1,5 +1,4 @@
-
-"use client"
+"use client";
 
 import "@/styles/globals.css";
 import { Metadata, Viewport } from "next";
@@ -24,44 +23,20 @@ import { celo, celoAlfajores } from "wagmi/chains";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-// const metadata: Metadata = {
-//   title: {
-//     default: siteConfig.name,
-//     template: `%s - ${siteConfig.name}`,
-//   },
-//   description: siteConfig.description,
-//   icons: {
-//     icon: "/favicon.ico",
-//   },
-// };
-
-//  const viewport: Viewport = {
-//   themeColor: [
-//     { media: "(prefers-color-scheme: light)", color: "white" },
-//     { media: "(prefers-color-scheme: dark)", color: "black" },
-//   ],
-// };
-
-
 const config = getDefaultConfig({
-  appName: 'My RainbowKit App',
-  projectId: 'YOUR_PROJECT_ID',
+  appName: "My RainbowKit App",
+  projectId: process.env.WALLETCONNECT_PROJECT_ID!,
   chains: [celo, celoAlfajores],
   transports: {
     [celo.id]: http(),
     [celoAlfajores.id]: http(),
   },
-    ssr: true, // If your dApp uses server side rendering (SSR)
+  ssr: true, // If your dApp uses server side rendering (SSR)
 });
-
-//  const config: Config = createConfig({
-//   connectors,
-//   chains: [celo, celoAlfajores],
-
-// });
 
 const queryClient = new QueryClient();
 
+console.log(process.env.WALLETCONNECT_PROJECT_ID);
 export default function RootLayout({
   children,
 }: {
