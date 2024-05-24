@@ -1,4 +1,11 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+
+require('dotenv').config();
+
+const nextConfig = {
+    env : {
+        WALLETCONNECT_PROJECT_ID: process.env.WALLETCONNECT_PROJECT_ID
+    }
+}
 
 module.exports = nextConfig
