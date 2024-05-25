@@ -48,7 +48,11 @@ export default function StekcitNavBar() {
 
   return (
     <>
-      <Box bg={useColorModeValue("#18A092", "#18A092")} px={4} className="sticky top-0">
+      <Box
+        bg={useColorModeValue("#18A092", "#18A092")}
+        px={4}
+        className="sticky top-0"
+      >
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
             // _hover={{
@@ -110,7 +114,22 @@ export default function StekcitNavBar() {
                 }}
                 label="Connect"
               />
-            ) : null}
+            ) : (
+              <div style={{ visibility: "hidden", pointerEvents: "none" }}>
+                <ConnectButton
+                  chainStatus="none"
+                  accountStatus={{
+                    smallScreen: "avatar",
+                    largeScreen: "avatar",
+                  }}
+                  showBalance={{
+                    smallScreen: false,
+                    largeScreen: true,
+                  }}
+                  label="Connect"
+                />
+              </div>
+            )}
           </Flex>
         </Flex>
 
