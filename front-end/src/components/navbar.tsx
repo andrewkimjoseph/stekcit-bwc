@@ -48,7 +48,7 @@ export default function StekcitNavBar() {
 
   return (
     <>
-      <Box bg={useColorModeValue("#18A092", "#18A092")} px={4}>
+      <Box bg={useColorModeValue("#18A092", "#18A092")} px={4} className="sticky top-0">
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <IconButton
             // _hover={{

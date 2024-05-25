@@ -1,6 +1,6 @@
 "use client";
 
-import StekcitNavBar from "./components/navbar";
+import StekcitNavBar from "../components/navbar";
 import { fonts } from "./fonts";
 import { ThemeProvider } from "./providers";
 
@@ -16,6 +16,8 @@ import { celo, celoAlfajores } from "wagmi/chains";
 import "./globals.css";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const config = getDefaultConfig({
   appName: "Stekcit BwC",
@@ -35,6 +37,20 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const router = useRouter();
+
+  const userLoggedIn = true;
+
+  useEffect(() => {
+    if (userLoggedIn) {
+      router.push("/become-a-user");
+    }
+    else {
+      router.push("/");
+    }
+  }, [userLoggedIn]);
+
+
   return (
     <html lang="en" className={fonts.dmSans.variable}>
       <head>
