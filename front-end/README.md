@@ -1,4 +1,4 @@
-# Stek•cit BwC Front-End with NextUI
+# Stek•cit BwC Front-End with ChakraUI
 ![Stekcit BwC - Front-End](https://github.com/andrewkimjoseph/stekcit-bwc/assets/91619206/565f130f-35bc-4346-b9d5-6fffc7ab4af9)
 
 
