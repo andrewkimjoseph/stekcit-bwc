@@ -2,7 +2,7 @@
 
 import StekcitNavBar from "./components/navbar";
 import { fonts } from "./fonts";
-import { Providers } from "./providers";
+import { ThemeProvider } from "./providers";
 
 import {
   RainbowKitProvider,
@@ -12,6 +12,8 @@ import {
 import "@rainbow-me/rainbowkit/styles.css";
 import { http, WagmiProvider } from "wagmi";
 import { celo, celoAlfajores } from "wagmi/chains";
+
+import "./globals.css";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -60,7 +62,7 @@ export default function RootLayout({
         <meta property="og:image" content="/favicon.png" />
       </head>
       <body>
-        <Providers>
+        <ThemeProvider>
           <WagmiProvider config={config}>
             <QueryClientProvider client={queryClient}>
               <RainbowKitProvider
@@ -77,7 +79,7 @@ export default function RootLayout({
               </RainbowKitProvider>
             </QueryClientProvider>
           </WagmiProvider>
-        </Providers>
+        </ThemeProvider>
       </body>
     </html>
   );

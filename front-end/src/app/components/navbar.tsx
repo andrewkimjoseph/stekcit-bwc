@@ -27,7 +27,7 @@ const NavLink = ({ children }: { children: ReactNode }) => (
     _hover={{
       textColor: "black",
       textDecoration: "none",
-      bg: useColorModeValue("white", "white"),
+      bg: "white",
     }}
     href={"/"}
   >
@@ -37,7 +37,6 @@ const NavLink = ({ children }: { children: ReactNode }) => (
 
 export default function StekcitNavBar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { colorMode, toggleColorMode } = useColorMode();
 
   const [isMiniPay, setIsMiniPay] = useState(false);
 
@@ -103,7 +102,7 @@ export default function StekcitNavBar() {
                 chainStatus="none"
                 accountStatus={{
                   smallScreen: "avatar",
-                  largeScreen: "full",
+                  largeScreen: "avatar",
                 }}
                 showBalance={{
                   smallScreen: false,
