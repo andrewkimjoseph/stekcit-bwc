@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+.yarn/install-state.gz
 
 # testing
 /coverage
@@ -34,13 +35,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# firebase and related
-.firebase
-
+# Firebase debug
 firebase-debug.log
 
-# Utility scripts
-/scripts/
+# Package lock
+package-lock.json
 
-# Dot env
+# Env
 .env
