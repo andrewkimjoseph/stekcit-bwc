@@ -32,7 +32,7 @@ export default function BecomeAUser() {
   };
   return (
     <main className="flex h-screen flex-col items-center">
-      <Heading as="h1" size="lg" noOfLines={1} paddingY={8}>
+      <Heading fontWeight={"normal"}  as="h1" size="lg" noOfLines={1} paddingY={8}>
         Welcome to Stekcit BwC!
       </Heading>
       <Image
