@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "stekcit"
+  },
+  "targets": {
+    "stekcit": {
+      "hosting": {
+        "stekcit-bwc": [
+          "stekcit-bwc"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
