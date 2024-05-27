@@ -1,10 +1,14 @@
 /* theme.ts */
-import { extendTheme } from "@chakra-ui/react";
+import { StyleFunctionProps, extendTheme } from "@chakra-ui/react";
 
-export const customTheme = extendTheme({
-  initialColorMode: 'dark',
+const config = extendTheme({
+  initialColorMode: 'light',
   fonts: {
     heading: 'var(--font-dmSans)',
     body: 'var(--font-dmSans)',
-  }
+  },
 });
+
+const stekcitBwCTheme = extendTheme({ config })
+
+export default stekcitBwCTheme
