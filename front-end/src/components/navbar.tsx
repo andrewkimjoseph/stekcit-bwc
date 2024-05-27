@@ -16,7 +16,25 @@ import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { StekcitBwCLogo } from "./logo";
 
-const Links = ["Home", "My Events", "My Tickets", "FAQ"];
+const Links = [
+  {
+    "title": "Home",
+    "href": "/"
+  },
+  {
+    "title": "My Event",
+    "href": "/my-events"
+  },
+  {
+    "title": "My Event",
+    "href": "/my-tickets"
+  },
+  {
+    "title": "FAQ",
+    "href": "/faq"
+  }
+
+];
 
 const NavLink = ({ children }: { children: ReactNode }) => (
   <Link
@@ -76,7 +94,7 @@ export default function StekcitNavBar() {
               display={{ base: "none", md: "flex" }}
             >
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+                <NavLink key={link.href}>{link.title}</NavLink>
               ))}
             </HStack>
           </HStack>
@@ -137,7 +155,7 @@ export default function StekcitNavBar() {
           <Box pb={4} display={{ md: "none" }}>
             <Stack as={"nav"} spacing={4}>
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
+                <NavLink  key={link.href}>{link.title}</NavLink>
               ))}
             </Stack>
           </Box>
