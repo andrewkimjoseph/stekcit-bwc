@@ -1,0 +1,1394 @@
+export const stekcitBwCContractABI =
+    [
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "_title",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_description",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_link",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_amount",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_dateAndTime",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "_forImmediatePublishing",
+                    "type": "bool"
+                }
+            ],
+            "name": "createEvent",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "id",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "creatingUserWalletAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "title",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "description",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "link",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "amountInEthers",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "createdAt",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "updatedAt",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "dateAndTime",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isBlank",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isPublished",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isVerified",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "verificationAmountInEthers",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isEnded",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isPaidOut",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct StekcitEvent",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_eventId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "createTicketForUser",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "id",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "eventId",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "attendingUserWalletAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "amountPaidInEthers",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isBlank",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct StekcitTicket",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "_username",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_emailAddress",
+                    "type": "string"
+                }
+            ],
+            "name": "createUser",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "id",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "walletAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "username",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "emailAddress",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isCreatingUser",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isBlank",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct StekcitUser",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "makeCreatingUser",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_eventId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "processPayout",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "id",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "eventId",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "creatingUserWalletAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "amountPaidOutInEthers",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "dateTimeAndMade",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isBlank",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct StekcitPayout",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_eventId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "publishEvent",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "id",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "creatingUserWalletAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "title",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "description",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "link",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "amountInEthers",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "createdAt",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "updatedAt",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "dateAndTime",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isBlank",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isPublished",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isVerified",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "verificationAmountInEthers",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isEnded",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isPaidOut",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct StekcitEvent",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_stekcitBwCOwnerAddress",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_eventId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "verifyEvent",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "id",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "creatingUserWalletAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "title",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "description",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "link",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "amountInEthers",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "createdAt",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "updatedAt",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "dateAndTime",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isBlank",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isPublished",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isVerified",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "verificationAmountInEthers",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isEnded",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isPaidOut",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct StekcitEvent",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_eventId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "checkIfEventIsAlreadyPaidOut",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_eventId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "checkIfTicketOfUserForThisEventExists",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_eventId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_walletAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "checkIfUserAlreadyHasTicket",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_walletAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "checkIfUserExists",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_eventId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_walletAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "checkIfUserisCreatingUserOfEvent",
+            "outputs": [
+                {
+                    "internalType": "bool",
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_walletAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "getAllEventsCreatedByUser",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "id",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "creatingUserWalletAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "title",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "description",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "link",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "amountInEthers",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "createdAt",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "updatedAt",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "dateAndTime",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isBlank",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isPublished",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isVerified",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "verificationAmountInEthers",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isEnded",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isPaidOut",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct StekcitEvent[]",
+                    "name": "",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getAllPublishedEvents",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "id",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "creatingUserWalletAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "title",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "description",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "link",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "amountInEthers",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "createdAt",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "updatedAt",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "dateAndTime",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isBlank",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isPublished",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isVerified",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "verificationAmountInEthers",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isEnded",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isPaidOut",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct StekcitEvent[]",
+                    "name": "",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_eventId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getAllTicketsOfEvent",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "id",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "eventId",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "attendingUserWalletAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "amountPaidInEthers",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isBlank",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct StekcitTicket[]",
+                    "name": "",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_walletAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "getAllTicketsOfUser",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "id",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "eventId",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "attendingUserWalletAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "amountPaidInEthers",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isBlank",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct StekcitTicket[]",
+                    "name": "",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_eventId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getEventAttendees",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "id",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "walletAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "username",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "emailAddress",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isCreatingUser",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isBlank",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct StekcitUser[]",
+                    "name": "",
+                    "type": "tuple[]"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_eventId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getEventById",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "id",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "creatingUserWalletAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "title",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "description",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "link",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "amountInEthers",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "createdAt",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "updatedAt",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "dateAndTime",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isBlank",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isPublished",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isVerified",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "verificationAmountInEthers",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isEnded",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isPaidOut",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct StekcitEvent",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getNumberOfAllPublishedEvents",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_eventId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getNumberOfTicketsOfEvent",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_walletAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "getNumberOfTicketsOfUser",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_payoutId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getPayoutById",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "id",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "eventId",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "creatingUserWalletAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "amountPaidOutInEthers",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "dateTimeAndMade",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isBlank",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct StekcitPayout",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_eventId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "address",
+                    "name": "_walletAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "getTicketByEventIdAndWalletAddress",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "id",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "eventId",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "attendingUserWalletAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "amountPaidInEthers",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isBlank",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct StekcitTicket",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_ticketId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getTicketById",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "id",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "eventId",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "attendingUserWalletAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "amountPaidInEthers",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isBlank",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct StekcitTicket",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_eventId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getTotalAmountPaidToEventInEthers",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_walletAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "getTotalNumberOfAllEventsCreatedByUser",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_eventId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getTotalNumberOfTicketsOfEvent",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_userId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "getUserByUserId",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "id",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "walletAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "username",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "emailAddress",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isCreatingUser",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isBlank",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct StekcitUser",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "_walletAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "getUserByWalletAddress",
+            "outputs": [
+                {
+                    "components": [
+                        {
+                            "internalType": "uint256",
+                            "name": "id",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "walletAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "username",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "emailAddress",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isCreatingUser",
+                            "type": "bool"
+                        },
+                        {
+                            "internalType": "bool",
+                            "name": "isBlank",
+                            "type": "bool"
+                        }
+                    ],
+                    "internalType": "struct StekcitUser",
+                    "name": "",
+                    "type": "tuple"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "stekcitBwCOwnerAddress",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ];
