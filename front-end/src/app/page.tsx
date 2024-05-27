@@ -21,6 +21,8 @@ export default function Home() {
         const doesUserExist = await checkIfUserExists(address);
         setUserExists(doesUserExist);
         setIsLoading(false);
+      } else {
+        setIsLoading(false);
       }
     };
     checkIfUserExistsAndSet();
