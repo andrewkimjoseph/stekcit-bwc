@@ -20,6 +20,7 @@ import {
   Alert,
   AlertDescription,
   AlertIcon,
+  useToast,
 } from "@chakra-ui/react";
 import { createUser } from "@/services/createUser";
 import { useAccount } from "wagmi";
@@ -35,20 +36,14 @@ export default function BecomeAUser() {
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
 
+  const toast = useToast();
+
   const [isGettingStarted, setIsGettingStarted] = useState(false);
   const [userExists, setUserExists] = useState(false);
 
   const [isCreatingUser, setIsCreatingUser] = useState(false);
 
   const [usernameInput, setUsernameInput] = useState("");
-
-  const [errorMessage, setErrorMessage] = useState("");
-
-  const [showErrorAlert, setShowErrorAlert] = useState(false);
-
-  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
-
-  const [successMessage, setSuccessMessage] = useState("");
 
   const [emailAddressInput, setEmailAddressInput] = useState("");
 
@@ -80,6 +75,27 @@ export default function BecomeAUser() {
     setIsGettingStarted(true);
     return;
   };
+  const showErrorToast = (description: string) => {
+    setIsGettingStarted(true);
+    return toast({
+      description: description,
+      status: "error",
+      duration: 9000,
+      isClosable: true,
+      position:"top"
+    });
+  };
+
+  const showSuccessToast = (description: string) => {
+    setIsGettingStarted(true);
+    return toast({
+      description: description,
+      status: "success",
+      duration: 9000,
+      isClosable: true,
+      position:"top"
+    });
+  };
 
   const validateInput = () => {
     const isUsernameValid = usernameInput.length > 6;
@@ -88,54 +104,13 @@ export default function BecomeAUser() {
     if (isUsernameValid && isEmailValid) {
       return true;
     } else if (!isUsernameValid && !isEmailValid) {
-      setErrorMessage(
-        "Username must be more than 6 characters and email must be valid."
-      );
-      setShowErrorAlert(true);
+      showErrorToast("Username must be more than 6 characters and email must be valid");
     } else if (!isUsernameValid) {
-      setErrorMessage("Username must be more than 6 characters.");
-      setShowErrorAlert(true);
+      showErrorToast("Username must be more than 6 characters");
     } else if (!isEmailValid) {
-      setErrorMessage("Email must be valid.");
-      setShowErrorAlert(true);
+      showErrorToast("Email must be valid");
     }
-    setTimeout(() => {
-      setShowErrorAlert(false);
-    }, 3000);
     return false;
-  };
-
-  const onClickCreateUser = async () => {
-    const inputIsValidated = validateInput();
-
-    if (inputIsValidated) {
-      setIsCreatingUser(true);
-
-      const isUserCreated = await createUser(address, {
-        _username: usernameInput,
-        _emailAddress: emailAddressInput,
-      });
-
-      if (isUserCreated) {
-        setIsCreatingUser(false);
-        onModalDismissed();
-        setSuccessMessage("User created successfully");
-        setShowSuccessAlert(true);
-        setTimeout(() => {
-          setShowSuccessAlert(false);
-        }, 3000);
-      } else {
-        setIsCreatingUser(false);
-        onModalDismissed();
-        setErrorMessage("User creation failed");
-        setShowErrorAlert(true);
-        setTimeout(() => {
-          setShowErrorAlert(false);
-        }, 3000);
-      }
-    }
-
-    return;
   };
 
   const onModalDismissed = () => {
@@ -143,6 +118,35 @@ export default function BecomeAUser() {
     setIsGettingStarted(false);
     return;
   };
+
+  const onClickCreateUser = async () => {
+    const inputIsValidated = validateInput();
+
+    if (inputIsValidated) {
+      setIsCreatingUser(true);
+      const isUserCreated = await createUser(address, {
+        _username: usernameInput,
+        _emailAddress: emailAddressInput,
+      });
+
+      if (isUserCreated) {
+        showSuccessToast("User created successfully");
+        setUsernameInput("");
+        setEmailAddressInput("");
+        onModalDismissed();
+      } else {
+        showErrorToast("User creation failed");
+        setUsernameInput("");
+        setEmailAddressInput("");
+        onModalDismissed();
+        showErrorToast("User creation failed");
+      }
+    }
+
+    return;
+  };
+
+
 
   return (
     <main className="flex h-screen flex-col items-center">
@@ -209,6 +213,8 @@ export default function BecomeAUser() {
         finalFocusRef={finalRef}
         isOpen={isOpen}
         onClose={onModalDismissed}
+        isCentered
+        closeOnOverlayClick={false}
       >
         <ModalOverlay />
         <ModalContent>
@@ -247,6 +253,7 @@ export default function BecomeAUser() {
                 bgColor: "#6600D5",
                 //   color: "black",
               }}
+              
             >
               Create user
             </Button>
@@ -254,20 +261,6 @@ export default function BecomeAUser() {
           </ModalFooter>
         </ModalContent>
       </Modal>
-
-      {showErrorAlert ? (
-        <Alert status="error">
-          <AlertIcon />
-          <AlertDescription>{errorMessage}</AlertDescription>
-        </Alert>
-      ) : null}
-
-      {showSuccessAlert ? (
-        <Alert status="success">
-          <AlertIcon />
-          <AlertDescription>{successMessage}</AlertDescription>
-        </Alert>
-      ) : null}
     </main>
   );
 }
