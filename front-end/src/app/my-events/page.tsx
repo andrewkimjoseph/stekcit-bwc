@@ -103,7 +103,7 @@ export default function AllEvents() {
                 </Box>
               )}
               {allEventsCreatedByUser.map((event) => (
-                <Box>
+                <Box key={event.id}>
                   <Heading size="xs" textTransform="uppercase">
                     {event.title}
                   </Heading>

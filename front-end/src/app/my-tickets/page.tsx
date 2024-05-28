@@ -88,7 +88,7 @@ export default function AllEvents() {
                 </Box>
               )}
               {allTicketsOfUser.map((ticket) => (
-                <Box>
+                <Box key={ticket.id}>
                   <Heading size="xs" textTransform="uppercase">
                     {ticket.eventId}
                   </Heading>
