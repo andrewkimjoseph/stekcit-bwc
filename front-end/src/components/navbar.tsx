@@ -31,10 +31,13 @@ const Links = [
     "href": "/my-tickets"
   },
   {
+    "title": "Approve Us",
+    "href": "/approve-us"
+  },
+  {
     "title": "FAQ",
-    "href": "/faq"
-  }
-
+    "href": "/faqs"
+  },
 ];
 
 
