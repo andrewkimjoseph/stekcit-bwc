@@ -31,12 +31,6 @@ export const createUser = async (
                 });
 
                 if (createUserTxnReceipt.status == "success") {
-                    await publicClient.readContract({
-                        address: stekcitBwCContractAddress as `0x${string}`,
-                        abi: stekcitBwCContractABI,
-                        functionName: "getUserByWalletAddress",
-                        args: [_signerAddress],
-                    });
                     return true;
                 }
                 return false;
