@@ -17,6 +17,15 @@ import {
   CardHeader,
   StackDivider,
   Spacer,
+  Image,
+  Tooltip,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
@@ -250,16 +259,55 @@ export default function Home() {
                   )}
                   {allPublishedEvents.map((event) => (
                     <Box key={event.id}>
-                      <Heading size="xs" textTransform="uppercase">
-                        {event.title}
-                      </Heading>
+                      <Flex direction={"row"}>
+                        <Heading size="xs" textTransform="uppercase">
+                          {event.title}
+                        </Heading>
+
+                        {event.isVerified ? (
+
+                          
+                          <Popover placement="top" >
+                            <PopoverTrigger>
+                              <Image
+                                marginLeft={2}
+                                height={"15px"}
+                                src="/verified.png"
+                                alt="Dan Abramov"
+                              />
+                            </PopoverTrigger>
+                            <PopoverContent color="black" width={"225px"}>
+                              <PopoverArrow />
+                              <PopoverCloseButton />
+                              <PopoverHeader
+                                pt={4}
+                                fontWeight="bold"
+                                border="0"
+                              >
+                                Verified event
+                              </PopoverHeader>
+                              <PopoverBody>
+                                Creator paid for this badge.
+                              </PopoverBody>
+                            </PopoverContent>
+                          </Popover>
+                        ) : null}
+
+                        {/* <Tooltip label="This is a verified event." fontSize="md">
+                     
+                        </Tooltip> */}
+                      </Flex>
                       <Text pt="2" fontSize="sm">
                         {event.description}
                       </Text>
+
                       <Button
                         marginTop={4}
                         variant="outline"
                         colorScheme="blue"
+                        onClick={() =>
+                          router.push(`/events/${event.id}?eventId=${event.id}`)
+                        }
                       >
                         View event
                       </Button>

@@ -20,6 +20,7 @@ import { getUserByWalletAddress } from "@/services/getUserByWalletAddress";
 
 import { StekcitTicket } from "@/entities/stekcitTickets";
 import { getAllTicketsOfUser } from "@/services/getAllTicketsOfUser";
+import { useRouter } from "next/navigation";
 
 export default function AllEvents() {
   const [userExists, setUserExists] = useState(false);
@@ -27,6 +28,8 @@ export default function AllEvents() {
   const [isLoading, setIsLoading] = useState(true);
 
   const { address } = useAccount();
+
+  const router = useRouter();
 
   const [stekcitUser, setSteckitUser] = useState<StekcitUser | null>(null);
 
@@ -90,12 +93,21 @@ export default function AllEvents() {
               {allTicketsOfUser.map((ticket) => (
                 <Box key={ticket.id}>
                   <Heading size="xs" textTransform="uppercase">
-                    {ticket.eventId}
+                    Event id: {ticket.eventId}
                   </Heading>
                   <Text pt="2" fontSize="sm">
-                    {ticket.id}
+                    Ticket Id: {ticket.id}
                   </Text>
-                  <Button marginTop={4} variant="outline" colorScheme="blue">
+                  <Button
+                    marginTop={4}
+                    variant="outline"
+                    colorScheme="blue"
+                    onClick={() =>
+                      router.push(
+                        `/events/${ticket.eventId}?eventId=${ticket.eventId}`
+                      )
+                    }
+                  >
                     View event
                   </Button>
                 </Box>

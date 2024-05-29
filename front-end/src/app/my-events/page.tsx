@@ -105,12 +105,19 @@ export default function AllEvents() {
               {allEventsCreatedByUser.map((event) => (
                 <Box key={event.id}>
                   <Heading size="xs" textTransform="uppercase">
-                    {event.title}
+                  {event.id}: {event.title}
                   </Heading>
                   <Text pt="2" fontSize="sm">
                     {event.description}
                   </Text>
-                  <Button marginTop={4} variant="outline" color="#18A092">
+                  <Button
+                    marginTop={4}
+                    variant="outline"
+                    color="#18A092"
+                    onClick={() =>
+                      router.push(`/my-events/${event.id}?eventId=${event.id}`)
+                    }
+                  >
                     View event
                   </Button>
                 </Box>
