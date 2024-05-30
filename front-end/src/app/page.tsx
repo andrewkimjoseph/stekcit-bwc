@@ -145,6 +145,14 @@ export default function Home() {
     // allPublishedEvents,
   ]);
 
+  if (address === undefined) {
+    return (
+      <main className="flex h-screen items-center justify-center">
+        <Text>Connect your wallet.</Text>
+      </main>
+    );
+  }
+
   if (isLoading) {
     return (
       <main className="flex h-screen items-center justify-center">
@@ -154,7 +162,7 @@ export default function Home() {
   } else {
     return (
       <>
-        {userExists ? (
+        {stekcitUser?.walletAddress === address ? (
           <main className="flex flex-col items-center">
             {!stekcitUser?.isCreatingUser ? (
               <Box
@@ -265,9 +273,7 @@ export default function Home() {
                         </Heading>
 
                         {event.isVerified ? (
-
-                          
-                          <Popover placement="top" >
+                          <Popover placement="top">
                             <PopoverTrigger>
                               <Image
                                 marginLeft={2}

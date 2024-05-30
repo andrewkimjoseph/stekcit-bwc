@@ -31,6 +31,7 @@ import { verifyEvent } from "@/services/verifyEvent";
 import { publishEvent } from "@/services/publishEvent";
 import { processPayout } from "@/services/processPayout";
 import { getTotalAmountPaidToEventInEthers } from "@/services/getTotalAmountPaidToEventInEthers";
+import { getNumberOfTicketsOfEvent } from "@/services/getNumberOfTicketsOfEvent";
 
 export default function Event() {
   const [userExists, setUserExists] = useState(false);
@@ -42,6 +43,8 @@ export default function Event() {
   const [isPublishing, setIsPublishing] = useState(false);
 
   const [isPayingOut, setIsPayingOut] = useState(false);
+
+  const [numberOfTicketsOfEvent, setNumberOfTicketsOfEvent] = useState(0);
 
   const { address } = useAccount();
 
@@ -170,6 +173,15 @@ export default function Event() {
           isClosable: true,
           position: "top",
         });
+      } else {
+        setIsVerifying(false);
+        toast({
+          description: "Verification failed.",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+          position: "top",
+        });
       }
     } else {
       setIsVerifying(false);
@@ -268,10 +280,19 @@ export default function Event() {
       setStekcitEvent(fetchedEvent);
     };
 
+    const getNumberOfTicketsOfEventAndSet = async () => {
+      const fetchedNumberOfTicketsOfEvent = await getNumberOfTicketsOfEvent(
+        address,
+        { _eventId: eventId }
+      );
+      setNumberOfTicketsOfEvent(fetchedNumberOfTicketsOfEvent);
+    };
+
+    getNumberOfTicketsOfEventAndSet();
     checkIfUserExistsAndSet();
     fetchUserByWalletAddress();
     fetchEventById();
-  }, [address, userExists, stekcitUser]);
+  }, [address, userExists, stekcitUser, numberOfTicketsOfEvent]);
 
   if (isLoading) {
     return (
@@ -307,6 +328,30 @@ export default function Event() {
         </Card>
 
         <Stack spacing={2}>
+          <Card>
+            <CardBody>
+              <InputGroup className="flex flex-row items-center justify-between">
+                <InputLeftAddon>Attendees: </InputLeftAddon>
+                <Text marginX={4}>{numberOfTicketsOfEvent}</Text>
+
+                <Button
+                  bgColor={"#18A092"}
+                  onClick={() =>
+                    router.push(
+                      `/my-events/${stekcitEvent?.id}/attendees?eventId=${stekcitEvent?.id}`
+                    )
+                  }
+                  isLoading={isVerifying}
+                  textColor={"white"}
+                  _hover={{
+                    bgColor: "#6600D5",
+                  }}
+                >
+                  View attendees
+                </Button>
+              </InputGroup>
+            </CardBody>
+          </Card>
           <Card>
             <CardBody>
               <InputGroup
@@ -377,9 +422,7 @@ export default function Event() {
 
           <Card>
             <CardBody>
-              <InputGroup
-                className={"flex flex-row items-center"}
-              >
+              <InputGroup className={"flex flex-row items-center"}>
                 <InputLeftAddon>Paid out</InputLeftAddon>
                 <Text
                   marginX={4}
@@ -387,8 +430,6 @@ export default function Event() {
                 >
                   {stekcitEvent?.isPaidOut.toString()}
                 </Text>
-
-            
               </InputGroup>
             </CardBody>
           </Card>
