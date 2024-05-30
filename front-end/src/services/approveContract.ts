@@ -1,10 +1,12 @@
-import { createPublicClient, createWalletClient, custom, http, parseTransaction } from "viem";
+import { createPublicClient, createWalletClient, custom, http, parseEther, parseTransaction } from "viem";
 import { celoAlfajores } from "viem/chains";
 import { stekcitBwCContractABI } from "@/utils/abis/stekcitBwCContractABI";
 import { stekcitBwCContractAddress } from "@/utils/addresses/stekcitBwCContractAddress";
+import { cUSDAlfajoresContractABI } from "@/utils/abis/cUSDAlfajoresContractABI";
+import { cUSDAlfajoresContractAddress } from "@/utils/addresses/cUSDAlfajoresContractAddresses";
 
-export const createUser = async (
-    _signerAddress: `0x${string}` | undefined, { _username, _emailAddress }: CreateUserProps
+export const approveContract = async (
+    _signerAddress: `0x${string}` | undefined, { _amount }: ApproveContractProps
 ): Promise<boolean> => {
     if (window.ethereum) {
         try {
@@ -18,19 +20,19 @@ export const createUser = async (
             });
             const [address] = await privateClient.getAddresses();
             try {
-                const createUserTxnHash = await privateClient.writeContract({
+                const approveContractTxnHash = await privateClient.writeContract({
                     account: address,
-                    address: stekcitBwCContractAddress,
-                    abi: stekcitBwCContractABI,
-                    functionName: "createUser",
-                    args: [_username, _emailAddress],
+                    address: cUSDAlfajoresContractAddress,
+                    abi: cUSDAlfajoresContractABI,
+                    functionName: "approve",
+                    args: [stekcitBwCContractAddress, parseEther(_amount.toString())],
                 });
 
-                const createUserTxnReceipt = await publicClient.waitForTransactionReceipt({
-                    hash: createUserTxnHash
+                const approveContractTxnReceipt = await publicClient.waitForTransactionReceipt({
+                    hash: approveContractTxnHash
                 });
 
-                if (createUserTxnReceipt.status == "success") {
+                if (approveContractTxnReceipt.status == "success") {
                     return true;
                 }
                 return false;
@@ -47,7 +49,6 @@ export const createUser = async (
 
 
 
-export type CreateUserProps = {
-    _username: string;
-    _emailAddress: string;
+export type ApproveContractProps = {
+    _amount: number;
 };

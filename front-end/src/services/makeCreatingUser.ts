@@ -3,8 +3,8 @@ import { celoAlfajores } from "viem/chains";
 import { stekcitBwCContractABI } from "@/utils/abis/stekcitBwCContractABI";
 import { stekcitBwCContractAddress } from "@/utils/addresses/stekcitBwCContractAddress";
 
-export const createUser = async (
-    _signerAddress: `0x${string}` | undefined, { _username, _emailAddress }: CreateUserProps
+export const makeCreatingUser = async (
+    _signerAddress: `0x${string}` | undefined,
 ): Promise<boolean> => {
     if (window.ethereum) {
         try {
@@ -22,8 +22,7 @@ export const createUser = async (
                     account: address,
                     address: stekcitBwCContractAddress,
                     abi: stekcitBwCContractABI,
-                    functionName: "createUser",
-                    args: [_username, _emailAddress],
+                    functionName: "makeCreatingUser",
                 });
 
                 const createUserTxnReceipt = await publicClient.waitForTransactionReceipt({
@@ -31,6 +30,12 @@ export const createUser = async (
                 });
 
                 if (createUserTxnReceipt.status == "success") {
+                    await publicClient.readContract({
+                        address: stekcitBwCContractAddress as `0x${string}`,
+                        abi: stekcitBwCContractABI,
+                        functionName: "getUserByWalletAddress",
+                        args: [_signerAddress],
+                    });
                     return true;
                 }
                 return false;
@@ -46,8 +51,3 @@ export const createUser = async (
 };
 
 
-
-export type CreateUserProps = {
-    _username: string;
-    _emailAddress: string;
-};
