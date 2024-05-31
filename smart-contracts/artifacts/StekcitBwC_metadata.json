@@ -1425,11 +1425,11 @@
 	},
 	"sources": {
 		"smart-contracts/StekcitBwC.sol": {
-			"keccak256": "0xc6d4096afe90f0cd15212f0b2109a0674124e3b4d2bb8907635026f9e2f66c02",
+			"keccak256": "0x1c76eecc3d37727a122eb600e81327c7f803d4e0282fd3785b8a71bb1d149b8c",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://18427b9857922cb6bb2929e37f2b5d8fcb898f17861bc62777e4f11c0a98b6e1",
-				"dweb:/ipfs/QmTkiUc5gGNc8gc4Dd8DekxwkKEsZjH1ZdJpjiBJuA6fvz"
+				"bzz-raw://47c3eff4dcfc5ce6d30aceac33dc2317c77a81aa587bce05919e79166a102c1f",
+				"dweb:/ipfs/QmZEWpci6W47YSGoXVmsCfCKomML18E719JWBQHWEAUWcy"
 			]
 		},
 		"smart-contracts/StekcitBwCInterfaces.sol": {

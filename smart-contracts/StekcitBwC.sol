@@ -213,6 +213,7 @@ contract StekcitBwC {
         view
         returns (StekcitEvent[] memory)
     {
+        uint256 runningEventId = 0;
         StekcitEvent[] memory eventsOfCreatingUser = new StekcitEvent[](
             getTotalNumberOfAllEventsCreatedByUser(_walletAddress)
         );
@@ -224,7 +225,8 @@ contract StekcitBwC {
         ) {
             StekcitEvent memory currentEvent = allStekcitEvents[eventId];
             if (currentEvent.creatingUserWalletAddress == _walletAddress) {
-                eventsOfCreatingUser[eventId] = currentEvent;
+                eventsOfCreatingUser[runningEventId] = currentEvent;
+                runningEventId++;
             }
         }
 
