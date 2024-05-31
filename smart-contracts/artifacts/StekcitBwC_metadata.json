@@ -1410,7 +1410,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"smart-contracts/StekcitBwC.sol": "StekcitBwC"
+			"smart-contracts/StekcitBwC_flattened.sol": "StekcitBwC"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -1424,28 +1424,11 @@
 		"remappings": []
 	},
 	"sources": {
-		"smart-contracts/StekcitBwC.sol": {
-			"keccak256": "0x920d845cc7bac9a431a4f6bc9e13101e07ee66c0901928174231763e2d67c36b",
-			"license": "MIT",
+		"smart-contracts/StekcitBwC_flattened.sol": {
+			"keccak256": "0x6c1b8b9a348f2ddf3ef18b4c4c3eee2295fc8289df8d492c0712bb4be88a5cd9",
 			"urls": [
-				"bzz-raw://32b968678847345de09afeb619f3ecbb518001e9283c1517f22f089cfa30d7a5",
-				"dweb:/ipfs/QmSpgwwRXtEsVuTPhnxRy7n6mLkL8Kjq2oigY5yZNyDF6H"
-			]
-		},
-		"smart-contracts/StekcitBwCInterfaces.sol": {
-			"keccak256": "0xf96de9ea696fc7e909267b6139e0c9ae368f6ea8b86bec376df7be27db298f5b",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://77db0f6aa81ece59c199ccb5214507943814b717e1f98a423a96639a599986b5",
-				"dweb:/ipfs/QmaEp24J2dRcZSyGJ6hRYssBM94oL6VMFRZDzsfnrCL6c5"
-			]
-		},
-		"smart-contracts/StekcitBwCStructs.sol": {
-			"keccak256": "0x419c819c75b50a09b2ec70de1ebe7d57264c03353d3e8be9d84e096bf2fa1f42",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://fb18bfa7887e6b685179ac76156ad378eba1ef5f436e6b8d4e133c580bdf1b85",
-				"dweb:/ipfs/QmSCkMcSyuvTUPvFkDT2GnXVg94b2ZJsFARDVgwh2Mk9JS"
+				"bzz-raw://bd2a693f4ab81d57e33f7b5005bf4ff96627b5e6e05c6b0b0d6ffb254df8cf34",
+				"dweb:/ipfs/QmRvMUGzUdWeZYukxdHtLhEVENN9UZw23ym3AyhQSYN7eV"
 			]
 		}
 	},
