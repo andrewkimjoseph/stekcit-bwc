@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect, useState } from "react";
+import { FC, ReactNode, useEffect, useState } from "react";
 import {
   Box,
   Flex,
@@ -16,39 +16,50 @@ import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { StekcitBwCLogo } from "./logo";
 import NavLink from "./navLinks";
+import { useConnect } from "wagmi";
+import { injected } from "wagmi/connectors";
 
 const Links = [
   {
-    "title": "Home",
-    "href": "/"
+    title: "Home",
+    href: "/",
   },
   {
-    "title": "My Events",
-    "href": "/my-events"
+    title: "My Events",
+    href: "/my-events",
   },
   {
-    "title": "My Tickets",
-    "href": "/my-tickets"
+    title: "My Tickets",
+    href: "/my-tickets",
   },
+  // {
+  //   "title": "Approve Us",
+  //   "href": "/approve-us"
+  // },
   {
-    "title": "Approve Us",
-    "href": "/approve-us"
-  },
-  {
-    "title": "FAQ",
-    "href": "/faqs"
+    title: "FAQs",
+    href: "/faqs",
   },
 ];
 
+interface Props {
+  children: ReactNode;
+}
 
-export default function StekcitNavBar() {
+const StekcitNavBar: FC<Props> = ({ children }) => {
+  const { connect } = useConnect();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [isMiniPay, setIsMiniPay] = useState(false);
 
   useEffect(() => {
-    if (window.ethereum && window.ethereum.isMiniPay) {
+    if (
+      window.ethereum &&
+      (window.ethereum.isMiniPay || window.ethereum.isMinipay)
+    ) {
       setIsMiniPay(true);
+      connect({ connector: injected({ target: "metaMask" }) });
     }
   }, []);
 
@@ -80,7 +91,9 @@ export default function StekcitNavBar() {
               display={{ base: "none", md: "flex" }}
             >
               {Links.map((link) => (
-                <NavLink href={link.href} key={link.href}>{link.title}</NavLink>
+                <NavLink href={link.href} key={link.href}>
+                  {link.title}
+                </NavLink>
               ))}
             </HStack>
           </HStack>
@@ -141,14 +154,18 @@ export default function StekcitNavBar() {
           <Box pb={4} display={{ md: "none" }}>
             <Stack as={"nav"} spacing={4}>
               {Links.map((link) => (
-                <NavLink href={link.href} key={link.href}>{link.title}</NavLink>
+                <NavLink href={link.href} key={link.href}>
+                  {link.title}
+                </NavLink>
               ))}
             </Stack>
           </Box>
         ) : null}
       </Box>
 
-      {/* <Box p={4}>Main Content Here</Box> */}
+      {children}
     </>
   );
-}
+};
+
+export default StekcitNavBar;

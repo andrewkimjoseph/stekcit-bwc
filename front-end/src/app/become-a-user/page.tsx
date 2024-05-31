@@ -21,6 +21,8 @@ import {
   AlertDescription,
   AlertIcon,
   useToast,
+  Flex,
+  Text
 } from "@chakra-ui/react";
 import { createUser } from "@/services/createUser";
 import { useAccount } from "wagmi";
@@ -31,7 +33,7 @@ import { useRouter } from "next/navigation";
 export default function BecomeAUser() {
   const router = useRouter();
 
-  const { address } = useAccount();
+  const { address, isConnected } = useAccount();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);

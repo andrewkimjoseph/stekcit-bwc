@@ -74,8 +74,7 @@ export default function RootLayout({
                   overlayBlur: "small",
                 })}
               >
-                <StekcitNavBar />
-                {children}
+                <StekcitNavBar>{children}</StekcitNavBar>
               </RainbowKitProvider>
             </QueryClientProvider>
           </WagmiProvider>

@@ -39,7 +39,7 @@ import { useRouter } from "next/navigation";
 export default function CreateEvent() {
   const [userExists, setUserExists] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const { address } = useAccount();
+  const { address, isConnected } = useAccount();
   const [stekcitUser, setSteckitUser] = useState<StekcitUser | null>(null);
   const [allEventsCreatedByUser, setAllEventsCreatedByUser] = useState<
     StekcitEvent[]
@@ -98,7 +98,7 @@ export default function CreateEvent() {
     checkIfUserExistsAndSet();
     fetchUserByWalletAddress();
     getAllEventsCreatedByUserAndSet();
-  }, [address, userExists, stekcitUser, allEventsCreatedByUser]);
+  }, []);
 
   const validateInputs = () => {
     let isValid = true;
