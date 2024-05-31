@@ -26,9 +26,10 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverTrigger,
+  Badge,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { useAccount } from "wagmi";
+import { useAccount, useConnect } from "wagmi";
 import BecomeAUser from "./become-a-user/page";
 import { StekcitUser } from "@/entities/stekcitUser";
 import { getUserByWalletAddress } from "@/services/getUserByWalletAddress";
@@ -38,15 +39,20 @@ import { getNumberOfTicketsOfUser } from "@/services/getNumberOfTicketsOfUser";
 import { getTotalNumberOfAllEventsCreatedByUser } from "@/services/getTotalNumberOfAllEventsCreatedByUser";
 import { getAllPublishedEvents } from "@/services/getAllPublishedEvents";
 import { StekcitEvent } from "@/entities/stekcitEvent";
+import { injected } from "wagmi/connectors";
 
 export default function Home() {
   const [userExists, setUserExists] = useState(false);
   const toast = useToast();
   const router = useRouter();
 
+  const [userAddress, setUserAddress] = useState("");
+
   const [isLoading, setIsLoading] = useState(true);
 
-  const { address } = useAccount();
+  const { connect } = useConnect();
+
+  const { address, isConnected } = useAccount();
 
   const [stekcitUser, setSteckitUser] = useState<StekcitUser | null>(null);
 
@@ -62,6 +68,12 @@ export default function Home() {
   ] = useState(0);
 
   const [isMakingCreatingUser, setIsMakingCreatingUser] = useState(false);
+
+  // const attemptConnection = async () => {
+  //   if (window.ethereum && window.ethereum.isMiniPay) {
+  //     connect({ connector: injected({ target: "metaMask" }) });
+  //   }
+  // };
 
   const makeCreatingUserAndSet = async () => {
     setIsMakingCreatingUser(true);
@@ -145,188 +157,225 @@ export default function Home() {
     // allPublishedEvents,
   ]);
 
-  if (address === undefined) {
+  if (!isConnected) {
     return (
       <main className="flex h-screen items-center justify-center">
-        <Text>Connect your wallet.</Text>
+        <Box bgColor={"#FFD62C"}>
+          <Flex className="flex flex-col items-center justify-center" h={8}>
+            <Text
+              ml={4}
+              textColor={"black"}
+              noOfLines={1}
+              paddingRight={4}
+              alignContent={"center"}
+              alignItems={"center"}
+              // onClick={attemptConnection}
+            >
+              {" "}
+              Connected: <Badge>{isConnected.toString()}</Badge>
+            </Text>
+          </Flex>
+        </Box>
       </main>
     );
   }
 
-  if (isLoading) {
-    return (
-      <main className="flex h-screen items-center justify-center">
-        <Spinner />
-      </main>
-    );
-  } else {
-    return (
-      <>
-        {stekcitUser?.walletAddress === address ? (
-          <main className="flex flex-col items-center">
-            {!stekcitUser?.isCreatingUser ? (
-              <Box
-                className="bg-opacity-50 w-full flex items-center justify-center"
-                bgColor={"rgba(102, 0, 213, 0.25)"}
+  // if (isLoading) {
+  //   return (
+  //     <main className="flex h-screen items-center justify-center">
+  //       <Flex className="flex flex-col items-center" >
+  //         <Text
+  //           textColor={"black"}
+  //           noOfLines={1}
+  //           paddingRight={4}
+  //           alignContent={"center"}
+  //           alignItems={"center"}
+  //         >
+  //           Connected: {isConnected.toString()}
+  //         </Text>
+  //       </Flex>
+  //       <Spinner />
+  //     </main>
+  //   );
+  // }
+
+  return (
+    <>
+      <Flex
+        className="flex flex-col items-center justify-center"
+        bgColor={"#FFD62C"}
+        h={8}
+      >
+        <Text
+          textColor={"black"}
+          noOfLines={1}
+          paddingRight={4}
+          alignContent={"center"}
+          alignItems={"center"}
+        >
+          Connected: <Badge>{isConnected.toString()}</Badge>
+        </Text>
+      </Flex>
+      {userExists ? (
+        <main className="flex flex-col items-center">
+          {!stekcitUser?.isCreatingUser ? (
+            <Box
+              className="bg-opacity-50 w-full flex items-center justify-center"
+              bgColor={"rgba(102, 0, 213, 0.25)"}
+            >
+              <Flex
+                h={10}
+                alignItems={"center"}
+                justifyContent={"space-between"}
               >
-                <Flex
-                  h={10}
-                  alignItems={"center"}
-                  justifyContent={"space-between"}
+                <Text textColor={"black"} noOfLines={1} paddingRight={4}>
+                  You are not a creator yet
+                </Text>
+                <Button
+                  onClick={makeCreatingUserAndSet}
+                  isLoading={isMakingCreatingUser}
+                  loadingText="Becoming"
+                  h={8}
+                  bgColor={"#EA1845"}
+                  textColor={"white"}
+                  _hover={{
+                    bgColor: "#EA1845",
+                    //   color: "black",
+                  }}
                 >
-                  <Text textColor={"black"} noOfLines={1} paddingRight={4}>
-                    You are not a creator yet
-                  </Text>
+                  Become one
+                </Button>
+              </Flex>
+            </Box>
+          ) : null}
+
+          <Heading as="h4" size="sm" paddingBottom={4} paddingTop={4}>
+            Hey, {stekcitUser?.username}, welcome home!
+          </Heading>
+
+          <Flex>
+            <Card
+              direction={{ base: "column", sm: "row" }}
+              overflow="hidden"
+              variant="outline"
+            >
+              <Stack>
+                <CardBody>
+                  <Heading size="md">
+                    {totalNumberOfAllEventsCreatedByUser}
+                  </Heading>
+
+                  <Text py="2">Events created</Text>
+                </CardBody>
+
+                <CardFooter>
                   <Button
-                    onClick={makeCreatingUserAndSet}
-                    isLoading={isMakingCreatingUser}
-                    loadingText="Becoming"
-                    h={8}
-                    bgColor={"#EA1845"}
+                    bgColor="#18A092"
                     textColor={"white"}
-                    _hover={{
-                      bgColor: "#EA1845",
-                      //   color: "black",
-                    }}
+                    onClick={() => router.push("/my-events")}
                   >
-                    Become one
+                    View events
                   </Button>
-                </Flex>
-              </Box>
-            ) : null}
+                </CardFooter>
+              </Stack>
+            </Card>
+            <Spacer width={4} />
+            <Card
+              direction={{ base: "column", sm: "row" }}
+              overflow="hidden"
+              variant="outline"
+            >
+              <Stack>
+                <CardBody>
+                  <Heading size="md">{numberOfTicketsOfUser}</Heading>
 
-            <Heading as="h4" size="sm" paddingBottom={4} paddingTop={4}>
-              Hey, {stekcitUser?.username}, welcome home!
-            </Heading>
+                  <Text py="2">Tickets bought</Text>
+                </CardBody>
 
-            <Flex>
-              <Card
-                direction={{ base: "column", sm: "row" }}
-                overflow="hidden"
-                variant="outline"
-              >
-                <Stack>
-                  <CardBody>
-                    <Heading size="md">
-                      {totalNumberOfAllEventsCreatedByUser}
-                    </Heading>
+                <CardFooter>
+                  <Button
+                    bgColor="#18A092"
+                    textColor={"white"}
+                    onClick={() => router.push("/my-tickets")}
+                  >
+                    View tickets
+                  </Button>
+                </CardFooter>
+              </Stack>
+            </Card>
+          </Flex>
 
-                    <Text py="2">Events created</Text>
-                  </CardBody>
+          <Card marginTop={8} direction={"column"}>
+            <CardHeader>
+              <Heading size="md">All Upcoming Events</Heading>
+            </CardHeader>
 
-                  <CardFooter>
-                    <Button
-                      bgColor="#18A092"
-                      textColor={"white"}
-                      onClick={() => router.push("/my-events")}
-                    >
-                      View events
-                    </Button>
-                  </CardFooter>
-                </Stack>
-              </Card>
-              <Spacer width={4} />
-              <Card
-                direction={{ base: "column", sm: "row" }}
-                overflow="hidden"
-                variant="outline"
-              >
-                <Stack>
-                  <CardBody>
-                    <Heading size="md">{numberOfTicketsOfUser}</Heading>
+            <CardBody>
+              <Stack divider={<StackDivider />} spacing="4">
+                {allPublishedEvents.length === 0 && (
+                  <Box>
+                    <Text pt="2" fontSize="sm">
+                      ...will show here
+                    </Text>
+                  </Box>
+                )}
+                {allPublishedEvents.map((event) => (
+                  <Box key={event.id}>
+                    <Flex direction={"row"}>
+                      <Heading size="xs" textTransform="uppercase">
+                        {event.title}
+                      </Heading>
 
-                    <Text py="2">Tickets bought</Text>
-                  </CardBody>
+                      {event.isVerified ? (
+                        <Popover placement="top">
+                          <PopoverTrigger>
+                            <Image
+                              marginLeft={2}
+                              height={"15px"}
+                              src="/verified.png"
+                              alt="Dan Abramov"
+                            />
+                          </PopoverTrigger>
+                          <PopoverContent color="black" width={"225px"}>
+                            <PopoverArrow />
+                            <PopoverCloseButton />
+                            <PopoverHeader pt={4} fontWeight="bold" border="0">
+                              Verified event
+                            </PopoverHeader>
+                            <PopoverBody>
+                              Creator paid for this badge.
+                            </PopoverBody>
+                          </PopoverContent>
+                        </Popover>
+                      ) : null}
 
-                  <CardFooter>
-                    <Button
-                      bgColor="#18A092"
-                      textColor={"white"}
-                      onClick={() => router.push("/my-tickets")}
-                    >
-                      View tickets
-                    </Button>
-                  </CardFooter>
-                </Stack>
-              </Card>
-            </Flex>
-
-            <Card marginTop={8} direction={"column"}>
-              <CardHeader>
-                <Heading size="md">All Upcoming Events</Heading>
-              </CardHeader>
-
-              <CardBody>
-                <Stack divider={<StackDivider />} spacing="4">
-                  {allPublishedEvents.length === 0 && (
-                    <Box>
-                      <Text pt="2" fontSize="sm">
-                        ...will show here
-                      </Text>
-                    </Box>
-                  )}
-                  {allPublishedEvents.map((event) => (
-                    <Box key={event.id}>
-                      <Flex direction={"row"}>
-                        <Heading size="xs" textTransform="uppercase">
-                          {event.title}
-                        </Heading>
-
-                        {event.isVerified ? (
-                          <Popover placement="top">
-                            <PopoverTrigger>
-                              <Image
-                                marginLeft={2}
-                                height={"15px"}
-                                src="/verified.png"
-                                alt="Dan Abramov"
-                              />
-                            </PopoverTrigger>
-                            <PopoverContent color="black" width={"225px"}>
-                              <PopoverArrow />
-                              <PopoverCloseButton />
-                              <PopoverHeader
-                                pt={4}
-                                fontWeight="bold"
-                                border="0"
-                              >
-                                Verified event
-                              </PopoverHeader>
-                              <PopoverBody>
-                                Creator paid for this badge.
-                              </PopoverBody>
-                            </PopoverContent>
-                          </Popover>
-                        ) : null}
-
-                        {/* <Tooltip label="This is a verified event." fontSize="md">
+                      {/* <Tooltip label="This is a verified event." fontSize="md">
                      
                         </Tooltip> */}
-                      </Flex>
-                      <Text pt="2" fontSize="sm">
-                        {event.description}
-                      </Text>
+                    </Flex>
+                    <Text pt="2" fontSize="sm">
+                      {event.description}
+                    </Text>
 
-                      <Button
-                        marginTop={4}
-                        variant="outline"
-                        colorScheme="blue"
-                        onClick={() =>
-                          router.push(`/events/${event.id}?eventId=${event.id}`)
-                        }
-                      >
-                        View event
-                      </Button>
-                    </Box>
-                  ))}
-                </Stack>
-              </CardBody>
-            </Card>
-          </main>
-        ) : (
-          <BecomeAUser />
-        )}
-      </>
-    );
-  }
+                    <Button
+                      marginTop={4}
+                      variant="outline"
+                      colorScheme="blue"
+                      onClick={() =>
+                        router.push(`/events/${event.id}?eventId=${event.id}`)
+                      }
+                    >
+                      View event
+                    </Button>
+                  </Box>
+                ))}
+              </Stack>
+            </CardBody>
+          </Card>
+        </main>
+      ) : (
+        <BecomeAUser />
+      )}
+    </>
+  );
 }
