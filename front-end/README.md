@@ -1,5 +1,5 @@
 # Stek•cit BwC Front-End with ChakraUI
-![Stekcit BwC - Front-End](https://github.com/andrewkimjoseph/stekcit-bwc/assets/91619206/565f130f-35bc-4346-b9d5-6fffc7ab4af9)
+![Stekcit BwC - Front-End](https://github.com/andrewkimjoseph/stekcit-bwc/assets/91619206/38a77a17-c105-40a8-9367-8a4466d02199)
 
 
 ## Technologies Used
