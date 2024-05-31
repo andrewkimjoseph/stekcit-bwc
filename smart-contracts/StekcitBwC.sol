@@ -271,7 +271,7 @@ contract StekcitBwC {
 
         for (
             uint256 ticketId = 0;
-            ticketId < totalNumberOfTicketsOfEvent;
+            ticketId < allStekcitTickets.length;
             ticketId++
         ) {
             StekcitTicket memory currentTicket = allStekcitTickets[ticketId];
@@ -736,3 +736,5 @@ contract StekcitBwC {
         return eventToVerifyAndUpdate;
     }
 }
+
+// Latest contract address: 0x1B0DCF025F32988c69E0f6E97f3eb42DdE269e79
