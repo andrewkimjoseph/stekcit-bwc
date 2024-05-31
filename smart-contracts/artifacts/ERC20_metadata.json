@@ -423,10 +423,10 @@
 	},
 	"sources": {
 		"smart-contracts/StekcitBwC_flattened.sol": {
-			"keccak256": "0x8a7c48485a89a870543018f43980f35aed10d7e8f9b4567b862e4b70cb917ea1",
+			"keccak256": "0x6c1b8b9a348f2ddf3ef18b4c4c3eee2295fc8289df8d492c0712bb4be88a5cd9",
 			"urls": [
-				"bzz-raw://8334e7c3703e55e67093c4acbd540a188b2414104f3c2f416a1119da314d179c",
-				"dweb:/ipfs/QmfDMgiwbK6JZUV7mBgYoH9L3jfph5YFc39s5axzncZU3T"
+				"bzz-raw://bd2a693f4ab81d57e33f7b5005bf4ff96627b5e6e05c6b0b0d6ffb254df8cf34",
+				"dweb:/ipfs/QmRvMUGzUdWeZYukxdHtLhEVENN9UZw23ym3AyhQSYN7eV"
 			]
 		}
 	},
