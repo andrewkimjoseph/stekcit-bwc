@@ -6,10 +6,10 @@
 </p>
 
 # About Stekcit BwC
-![Solution](https://github.com/andrewkimjoseph/stekcit-bwc/assets/91619206/2bcb0459-1477-4ab8-91e2-525f7169b435)
+![Solution](https://github.com/andrewkimjoseph/stekcit-bwc/assets/91619206/3604b8b7-a250-4eb0-ade6-44887e44e497)
 
 # Current Features
-![Features](https://github.com/andrewkimjoseph/stekcit-bwc/assets/91619206/51dfbbc0-afe8-4228-bdbe-e4a431640293)
+![Features](https://github.com/andrewkimjoseph/stekcit-bwc/assets/91619206/3f95f386-32c4-4b50-b00f-becd2c82c218)
 
 # How to use Stekcit BwC within MiniPay
 1. Launch MiniPay from Opera Mini.
@@ -20,7 +20,7 @@
 6. Tap `Go`, and find your way through the app.
 
 ### Or watch a video demo of the product here: 
-...
+https://www.youtube.com/watch?v=QbmDGu6tIX4
 
 # Technologies Used
 1. Front-end: `Next.js`
@@ -32,12 +32,10 @@
 https://www.canva.com/design/DAGESwvNlQc/-mPFBba3NTMgCUfzYZDcSA/view?utm_content=DAGESwvNlQc&utm_campaign=designshare&utm_medium=link&utm_source=editor
 
 ## Pitch Deck Video
-...
+https://www.canva.com/design/DAGESwvNlQc/-mPFBba3NTMgCUfzYZDcSA/view?utm_content=DAGESwvNlQc&utm_campaign=designshare&utm_medium=link&utm_source=recording_view
 
 ## Project Demo Video
-...
-## Pitch Deck Video and Project Demo Video (Combined)
-...
+https://www.youtube.com/watch?v=QbmDGu6tIX4
 
 ## Project Demo Link
 https://stekcit-bwc.web.app
