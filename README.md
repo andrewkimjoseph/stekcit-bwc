@@ -42,7 +42,7 @@ https://www.canva.com/design/DAGESwvNlQc/-mPFBba3NTMgCUfzYZDcSA/view?utm_content
 ## Project Demo Link
 https://stekcit-bwc.web.app
 
-## Screenshots
+## Snapshots
 ...
 
 # License
