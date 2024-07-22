@@ -42,11 +42,11 @@ const Links = [
   },
 ];
 
-interface Props {
-  children: ReactNode;
-}
+// interface Props {
+//   children: ReactNode;
+// }
 
-const StekcitNavBar: FC<Props> = ({ children }) => {
+const StekcitNavBar = () => {
   const { connect } = useConnect();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -162,8 +162,6 @@ const StekcitNavBar: FC<Props> = ({ children }) => {
           </Box>
         ) : null}
       </Box>
-
-      {children}
     </>
   );
 };
